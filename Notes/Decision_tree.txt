@@ -1,0 +1,51 @@
+CART
+-----
+- Classification and regression trees
+- Gini co-efficient - Measure of equality (If gini co-efficient is near to 0, then there is no biasing based on any factors and it represents perfect equality. Ex: Income equally split
+  amoong all the people.If gini co-efficient is near to 1, it represents highest inequality, ex: only 1 person has the highest income and rest of them have negligible income compared to first one
+  )
+- CART always split to two branches
+- This is based on 2 important concepts
+a) Purity - The leaf nodes should be pure. There should be a clear distinction between the root node and the type of outputs predicted with a high gini co-efficient.
+Ex: Suppose in an interview of 100 candidates 32 passed and 68 failed and there are different variables with related to employees collected. And suppose, taking age as a predictor variable
+    we get the below tree which is of highest purity.
+	
+	Interview(Pass - 32, Fail - 58, Total - 90)
+	------------------------------------------------------------
+	|															|
+	|															|
+	|															|
+	Age<24(Pass-20, Fail-5,Total -25)							Age>24(Pass-12,Fail - 53,Total- 65)
+
+b) Balance - Both left and right branches have same number of samples.
+Ex: In the above example based on age we can achieve balance as below
+
+	Interview(Pass - 32, Fail - 58, Total - 90)
+	------------------------------------------------------------
+	|															|
+	|															|
+	|															|
+	Age<30(Pass-15, Fail-30,Total -45)							Age>30(Pass-17,Fail - 28,Total- 45)
+
+- Incase of continuous variables, CART will analyze several cut points and product a final binary split based on the evaluation of all cut points which is very precise.
+Ex: In the case of above example. It will start the split based on the age of person who is youngest and will put it on the left side of tree and rest to right. 
+    In next iteration, it will combine first 2 young ages and place it on the left side and rest to right. Similarly it will evaluate all cut points and then produces the final tree
+
+- In case of nominal variables, it will consider all combinations and the combination with best purity will be considered.
+- In case of ordinal variables, since they are ordered, the split will be like first v/s second and third combined or first and second combined vs third. It can't be like first and 
+  third combined v/s second.
+- In case of missing data, CHAID compares the split with nodes which have similar split and combines the data with node having a similar split. But CART uses Surrogates, it will
+  identify other variables which co-relate with the variable that has missing data and then based on their values it determines under which node the data for the row with missing data falls under.
+  ExL If the age for a candidate is missing based on his marital status it might determine his age and place him in any of the nodes which were created based on age split
+  
+Pruning
+-------
+- CART trees are usually pruned
+- IF pruning is not done, it results in complex branches (branches with more leaf nodes), that doesn't really contribute to the accuracy of the tree
+- In data modelers, pruning can be turned off in order to just manually go deep in a tree and analyze results other than agreeing with the suggested tree from the modeler.
+
+Settings that govern CART
+-----------------------------
+- Parent/child sample size
+- Tree depth -  it's the number of levels the tree is allowed to continue until it simply halts at that maximum.
+- Minimum change in impurity -  smaller value (tree gets bigger) and bigger value (tree gets smaller)
