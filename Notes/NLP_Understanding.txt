@@ -1,0 +1,586 @@
+Natural Language Processing
+-------------------------------
+- Useful methods for tokenizing
+1) findall() - searches for particular words/whitespaces
+2) split() - splits a sentence to words based on certain delimiters
+
+- Useful regexes for tokenizing
+1) '\W' and '\w' - words
+2) '\S' and '\s' - whitespaces
+
+s1 = 'This is a string'
+s2 = 'This   is    a    string'
+s3 = 'This@@##is!!$$%a###string!!'
+
+The process of breaking a sentence to set of words is called tokenizing. To get only words from above sentences we use the below regexes
+
+Using split
+-------------
+- For s1, re.split('\s',s1)
+- For s2, re.split('\s+',s2)
+- For s3, re.split('\W+',s3)
+
+Using findall
+----------------
+- For s1, re.findall('\S+',s1)
+- For s2, re.findall('\S+',s2)
+- For s3, re.findall('\w+',s3)
+
+Using Replace
+-------------------
+- For the below string identify 'PEP8' along with some of the normal typos associated with it and replace it with 'PEP8 Python Style Guide'
+
+S1 = 'I like to follow PEP8 guidelines'
+S2 = 'I like to follow PEP7 guidelines'
+S3 = 'I like to follow PEEP8 guidelines'
+
+- To find PEP8 and related typos, use the below expressions
+
+- re.findall('[A-Z]+[0-9]+',S1)
+- re.findall('[A-Z]+[0-9]+',S2)
+- re.findall('[A-Z]+[0-9]+',S3)
+
+- To replace PEP8 and typos with PEP8 Pythin Style Guide, use the below expressions
+
+- re.sub('[A-Z]+[0-9]+','PEP8 Python Style Guide',S1)
+- re.sub('[A-Z]+[0-9]+','PEP8 Python Style Guide',S2)
+- re.sub('[A-Z]+[0-9]+','PEP8 Python Style Guide',S3)
+
+Other methods in re package
+------------------------------
+re.search(), re.match(), re.fullmatch(), re.finditer(), re.escape()
+
+Machine Learning pipeline
+--------------------------
+1) Initial input - Raw text - model can't distinguish words
+2) Tokenize - Split sentences to words and tell the model what to look at
+3) Clean text - remove stop words/punctuation, stemming etc and only filter out words that matter
+4) Vectorize - Convert the words in to numeric form. Ex: In a spam mail. Each sentence will be a row and each column will represent a word and the values represent the count of
+   each word in the sentence
+5) Machine learning algorithm - fit/train model - 
+   Choose the best machine learning model among the candidate models. Once the best model is selected then it will be tested against a holdout test set. If it passes, then prepare
+   to implement within whatever framework
+6) Implement the model - Spam filter - system to filter emails
+
+Pre-processing of data involves 4 steps
+----------------------------------------
+
+S1 = Nah I don't think he goes to usf, he lives around here though
+1) Removing punctuation - After 1) - Nah I dont think he goes to usf he lives around here though
+2) Tokenization			- After 2) - [nah, i, dont, think, he, goes, to, usf, he, lives, around, here, though]
+3) Remove stopwords		- After 3) - [nah, dont, think, goes, usf, lives, around, though]
+4) Lemmatize/Stem
+
+Stemming
+------------
+- Process of reducing inflected (or sometimes derived) words to their word stem or root.
+- Process of chopping off the end of the word to leave only the base.
+
+Examples
+- Stemming/stemmed -> Stem
+- Elictricity/electical -> Electr
+- Berries/berry -> Berri
+- Connection/connected/connective -> Connect
+
+Stemming which is not right - Ex: Meanness/meaning -> Mean
+
+Benefits of using stemming
+---------------------------
+- Reduces the corpus of words the model is exposed to
+- Explicitly correlates words with similar meanings
+
+Different types of stemmers
+-----------------------------
+- Porter stemmer (popular stemmer)
+- Snowball stemmer
+- Lancaster stemmer
+- Regex-Based stemmer
+
+Lemmatizing
+-------------
+- Process of grouping together the inflected forms of a word so they can be analyzed as a single term, identified by word's lemma
+- The lemma is the canonical form of a set of words
+
+Ex - Type,typed and typing will all be forms of the same lemma type
+
+- Using vocabulary analysis of words aiming to remove inflectional endings to return the dictionary form of a word
+
+Difference between stemming and lemmatizing
+------------------------------------------------
+- The goal of both is to condense derived words in to their base forms
+- Stemming is typically faster as it simply chops off the end of a word using heuristics, without understanding of the context in which a word is used. Is less accurate
+- Lemmatizing is typically more accurate as it uses more informed analysis to create groups of words with similar meaning based on the context around the word, part of speech
+  and other factors. Lemmatizers will always return a dictionary word. May take time and is computationally expensive but typically more accurate.
+- Popular lemmatizer - Word Net lemmatizer - Word net is a collection of nouns, verbs, adjective and adverbs that are grouped together in sets of synonyms, each expressing a distinct
+  concept. Given a word, it will track that word to its synonyms, and then the distinct concept that group of words represents.
+Ex: Meanness and meaning when stemmed will return mean -> ps.stem('meanness'), ps.stem('meaning')
+    but meanness and meaning when lemmatized will return meanness and meaning respectively -> ps.lemmatize('meanness'), ps.lemmatize('meaning')
+	
+
+Vectorizing
+-------------
+- Process of encoding text as integers to create feature vectors
+- Feature vector - A n-dimensional vector of numerical features that represent some object
+- The vector will have a matrix (document-term matrix) with one line per document as rows and each word appearing in the document as columns and the values will have the count of word that appears in each
+  line of the document.
+  
+Why vectorizing ?
+---------------------
+- When looking at a word, python only sees string of characters
+- Raw text needs to be converted to numbers so that python and alorithms used for machine learning can understanding
+- Based on certain words and number of times that the words are used in spam/ham mail, python decides whether the incoming mail is spam or not
+- Suppose there are 14 rows of text messages in dataset and there 400 unique words in the dataset, via the vectorization step, a document term matrix of shape 14x400 will be constructed
+- And suppose, we filter 2 words lol and offer and see the counts in the text messages, we can see that the count of the word offer will be more in spam mails, while the count of 
+  word lol will be more in ham mails
+- The above type of vectorization is called Count vectorizations
+
+Types of vectorization
+------------------------
+1) Count vectorization
+2) N-grams
+3) Term frequency - inverse document frequency (TF-IDF)
+
+Count Vectorization
+----------------------
+- Create a function to take the text and remove punctuation, tokenize and remove stopwords and return a clean text
+- Create a count vector object and for the analyzer variable pass the function which is created above.
+- Call the fit/transform method to generate the document term matrix
+- Check the shape
+- To train the model, filter only first 20 rows of the dataset and using fit transform method generate a smaller document term matrix
+- Since it is a sparse matrix, use the toarray() method to display the actual matrix and create a dataframe.
+- Use the get feature names method to assign the feature names as column names of the dataframe
+
+N-grams vectorization
+-----------------------
+- It creates a document term matrix, where counts still occupy the cell but instead of the columns representing single terms, they represent all combinations of adjacent words 
+  of length n in your text
+Example - String - "NLP is an interesting topic"
+if n=2 (bigram) - tokens : "nlp is","is an","an interesting","interesting topic"
+if n=3 (trigram) - tokens : "nlp is an","is an interesting","an interesting topic"
+if n=4 (four-gram) - tokens : "nlp is an interesting","is an interesting topic"
+- We get a little more context by using N-grams vectors
+- Google's autocomplete uses n-grams vectorization
+
+Steps to implement
+------------------
+- Follow the same steps as above. Instead at the end of function clean_text, join back the tokens with a space in between for the ngrams vector to form tokens of desired length
+- While instantiating vector object, provide value for ngram_range variable. If value is given as (ngram_range = (1,3)), then it will consider unigrams, bigram and trigrams as features
+On other hand, to consider only bigrams as features pass the parameter as (ngram_range = (2,2)) while instantiating vector object
+- Rest of the steps are same as mentioned above for N-grams vectorization.
+
+TF-IDF (Term frequency - Inverse Document Frequency) 
+--------------------------------------------------------
+- TF-IDF creates a document term matrix where there is still 1 row per text message and the columns still represent single unique terms. Instead of cells representing the count,
+the cells represent a weighting that's meant to identify how important the word is to an individual text message. The below formula defines the weighting.
+
+w(i,j) = tf(i,j) * log(N/df(i))
+
+tf(i,j) = number of times i occurs in j divided by total number of terms in j
+df(i) = number of documents containing i
+N = total number of documents
+
+- Rarer the word in the document containing set of text messages, higher the value of the log.
+- If a word occurs frequently in a message, but infrequently in other messages in the document, then a very large number will be assigned and it'll be assumed to be very inmportant
+  to differentaiting that text message from others.
+  
+Steps to implment
+--------------------
+- Same initial steps of count vectorization until instantiating the vector object and passing the clean_text as the value to analyzer variable
+- Shape will be same as count vectorization matrix. The differnce will be in the values in the matrix
+
+- TF-IDF is a count vectorizer that includes some consideration for the length of the document, and also how common the word is across other text messages
+
+Feature Engineering
+---------------------
+- Feature engineering is the process of creating new features or transforming your existing features to get the most out of your data.
+
+Creating new features
+---------------------
+- Length of the text field
+- Percentage of characters that are punctuation in the text
+- Percentage of characters that are capitalized
+
+Transformations
+------------------
+- Power transformations (square, square root, adding logs etc)
+- Standardizing data
+
+Features evaluation in demo
+-----------------------------
+- 2 features are evaluated here, length of the body text and the percentage of punctuations in the body text.
+- Once the values for these columns are got for each of the text messages/rows, then these are plotted using histograms to see if the hypothesis is true or not.
+- From the demo it can be seen that, spam messages usually have longer body text length and percent of punctuations does not impact much in differentiating the spam and ham texts
+- Next we plot the histogram of full distribution (without having separate distribution for spam and ham previously) for both features and see where the transformation can be applied
+- The body length feature is a bimodal distribution having 2 spikes (differntiating spam and ham). But the punctuation percent is a skewed distribution with some outliers and
+  skewed tail, for which we apply transformation
+  
+Transformation
+-------------------
+- A transformation is the process that alters each data point in a certain column in a systematic way that makes it cleaner for a model to use. That may be squaring each value
+  or taking square root of each value etc
+- Suppose we are having a distribution with long tail, then we apply log transformation so that it is uniformly distributed. We do this for model trying to chase down outliers
+  in that tail
+
+Ex : Box Cox Power transformations
+
+- y^x, where y is the value in the column and x is the power raised
+- normally, x will be in a range betwenn -2 to +2, so if the value in the cell is 50 percent, we shall select one of the below values to be applied to the current cell and each of other cells
+
+Value - x   - y^x
+50    - -2  - 50^-2(1/50^2)
+50    - -1  - 50^-1(1/50)
+50	  - -0.5- 50^-0.5(1/root(50))
+50    - 0   - 50^0(1)
+50    - -0.5- 50^0.5(root(50))
+50    - 1   - 50^1(50)
+50    - 2   - 50^2
+
+- One of the above transformations are applied to each value of the rows in order to get a normal distribution which will be easier for the model to interpret.
+- From the demo, values for 4,5 get the transformation closer to normal distribution along with pulling the outliers closer and hence we transform values for all rows with power 4/5
+
+
+Machine learning
+-------------------
+- It is process of parsing data, and learning from it, to make futuristic predictions.
+- Supervised learning - Inferring a function from labelled training data to make predictions on unseen data. Ex: Predict whether any given email is spam or not
+- Unsupervised learning - Deriving structure from data where we don't know the effect of any of the variables. Ex: Based on the content of email, group similar emails together in
+  distinct folders.
+
+Model evaluation techniques
+----------------------------
+Holdout Test Set
+-------------------
+- Sample of data not used in fitting a model for the purpose of evaluating the model's ability to generalize unseen data.
+
+K-Fold Cross-Validation
+---------------------------
+- Used to evaluate models
+- The full dataset is divided in to k-subsets and the hold out method is repeated k-times. Each time, one of the k-subsets is used as the test set and the other k-1 subsets are 
+  put together to be used to train the model
+  
+Ex: Suppose we have 10,000 examples in a dataset. We divide the dataset to 4 subsets of 2000 examples each. In each iteration, 4 subsets will be used as training dataset and 
+    1 subset will be used as test dataset. This iteration will be repeated 5 times so that all the subsets act as test dataset and the performance for each iteration is measured.
+	Final output will be the average of the iterations (mostly). This validation is inbuilt in scikit learn.
+	
+Evaluation metrics
+---------------------
+- Accuracy = #predicted correctly
+			-------------------------
+			total # of observations
+			
+- Precision = #predicted as spam that are actually spam
+              ------------------------------------------
+			  total # predicted as spam
+
+- Recall = #predicted as spam that are actually spam
+			-----------------------------------------
+			total # that are actually spam
+			
+- Tailor the aggressiveness of the alogorithm based on business problem
+- If false positives are really really costly then you'll want to optimize your model for precision.
+- But if false negatives are really really costly then you'll want to optimize the model for recall.
+- Only knowing accuracy may not really give you insight into this kind of trade off.
+
+Random Forest Model
+----------------------
+- One type of machine learning model that falls in to a broader category of ensemble learners.
+- This takes advantage of the ensemble method, which is a technique that creates multiple models and then combines them to produce better results than any of the single models individually
+- The idea behind ensemble learning is that you can combine a lot of weak models to create a single strong model.
+- Basic idea is that this leverages the aggregate opinion of many over the isolated opinion of one.
+- This method has a very strong theoretical motivation
+
+Definition - Random forest is an ensemble learning method that constructions a collection of decision trees and then aggregates the prediction of each tree to determine the final prediction
+- Here the weak models are the individual decision trees and then those are combine into the strong model that is the aggregated random forest model.
+- Suppose we build a random forest model to predict whether mail is spam or ham, and say the RF model constructs/has 100 decision trees which are built independently of other and for each row/message the prediction of each tree is
+  considered. Suppose 60 trees say it as spam and 40 of them say it as ham, then the final prediciton will be spam.
+
+Benefits of using Ensemble methods/ RF model
+-----------------------------------------------
+- It can be used for classification or regression i.e, a categorical response or continous response
+- Easily handles outliers, missing values, skewed data (data does not need to be in the same scale)
+- Accepts various types on inputs (continous, ordinal etc)
+- Less likely to overfit compared to other machine learning models
+- It generates feature importance score for each feature
+
+Demo
+-----
+- First we have to read in our data, create our new features, clean data and then vectorize the data
+- Vecotorization was done using TFIDF vectorizer (generates the document term matrix where each cell is a weight of how important that word is by measuring how frequently it occurs)
+within that text message relative to how frequently that word occurs  across all other text messages.
+- Also we are creating a dataframe called X_Features that does not include the label.
+- Import the random forest classifier and print(dir(RandomForestClassifier)) - 2 important attributes that needs attention - 1) Feature importance - which outputs
+  the value of each feature to the model 2) fit - and this is what allows you to fit your actual model and then we'll store the fit model as an object 3) predict - Use predict
+  method from the fit model object, to make predictions on your test set
+- print(RandomForestClassifier) - shows the hyperparameters that are contained within the random forest classifier - 1)max_depth - how deep each of your decision trees is. Default is none
+  . Basically, that means that it will build each decision tree until it minimizes some loss criteria 2)n_estimators - This is how many decision trees that will be built within the
+  random forest , so the default is 10. So each of the defaults mean the random forest would build 10 decision trees of unlimited depth. Then there will be a vote among these 10
+  decision trees to determine the final prediction. Random forest is usually built on relatively few fully built decision trees. 
+- We will run the random forest through cross-validation. For that we will import K-fold and cross_val_score. Kfold will actually facilitate the splitting of your full dataset in to the
+  subsets and then this cross_val_score helps us to get the actual scoring.
+- Instantiate the randomforestclassifies with n_jobs hyperparameter set to -1 - it basically just allows this to run faster by building individual decision trees in parallel. This 
+  parameter will be set to -1 for any process that can be run in parallel.
+- Instantiate the KFold object and set the n_splits to 5. It will assign each observation in our original dataset to a certain subset, so that there will be 5 subsets
+  So that 5 subsets are generated and it will assign each observation to one of the five. First iteration, model will train on 1,2,3,4 subsets and evaluate of 5th subset and so on.
+- Run the cross_val_score function with following parameters
+  1) rf - model object
+  2) X_Features - features considered for evaluation
+  3) data['label'] - spam or ham prediction
+  4) k_fold - what kind of cross validation to be used
+  5) scoring = 'accuracy'
+  6) n_jobs = -1
+- This will output array of 5 values due to k_fold set to 5 [0.96,0.97,0.97,0.95,0.96]. This means that in the first iteration, the model was trained and evaluated on a test set 
+  and correctly predicted 96% of samples.
+  
+Demo with holdout test set
+----------------------------
+Learning how to create and use a holdout test set to allow us to explore the results in a little more detail
+- First we have to read in our data, create our new features, clean data and then vectorize the data
+- import the metrics modules precision_recall_fscore_support and import the train_test_split function
+- First, split the data to training set and test set. Pass in the X_Features, data['label'], test_size (what percent of our original dataset do we want to allocate to the test set)
+  and the commonly used value there is 20%, so 0.2. The train test split will output 4 datasets. We need to tell it what we want to store it as and we will store in the following variables
+  X_train, X_test,y_train,y_test
+- Now import random forest classifier and instantiate with hyperparameters n_estimators = 50 and max_depth = 20 and set n_jobs = -1 and store to object rf
+- Fit using fit method - rf_model = rf.fit(X_train, y_train) and run the model. It will store fit model in rf_model.
+- Call the feature_importances_ attribute via the rf_model object - rf_model.feature_importances_ - what this will output is just a list of feature importances, without any names alongside them.
+  Hence add column_names and zip it and sort it to get the feature_names and their importance in descending order. After run, we can see that body_len is the most important feature
+  NOTE- While vectorizing, the actual words do not become column names but they are assigned a number. Also, random forest includes some random sampling and hence feature importance might vary
+- Call the predict method from the fit model - rf_model.predict(X_test) and store it in y_pred. y_pred is an array of predictions for each of the elements in the test set.
+- Next we will use y_pred and y_test to look at actual performance metrics by calling score(y_test, y_pred, pos_label = 'spam',average = 'binary') function. pos_label has to be passed because if the label isn't
+  binary (0 or 1, in our case it is not since in our case it is ham/spam) then we will have to specify which is the positive label i.e, what we are interested in predicting (spam in our case).
+  The function will output 4 outputs (precision,recall,fscore,support) and hence we need 4 variables. And we print precision,recall and accuracy. Accuracy = y_pred==y_test.sum()/len(y_pred)
+  100% precision - of all the mails predicted as spam. All of them were actually spam
+  55.25 recall - of all the actual spam mails, only 55.2% were marked as spam
+  93.4% accuracy means that out of all the mails that had come to your mailbox, 93.4% mails were correctly identified as spam/ham.
+  
+Demo using grid-search
+-------------------------
+- Grid-search basically means defining a grid of hyperparameter settings, and then exploring a model fit with each combination of those hyperparameter settings. 
+   So in our case, that means setting a range of number of estimators, and a range of max depth that we'd like to explore. And then grid-search will 
+   test every combination of those, and fit a model and evaluate it, to see which hyperparameter combination generates the best model.
+- Repeat the same steps as above until train_test_split.
+- After train_test_split, we'll define a function train_rf and that will accept the number of estimators, and then the depths of the trees, as parameters. We'll call this function
+  by using loop strucute where the outer loop is like for n_ests in range() and inner loop is like for depth in range() and then what we'll do is we'll call the train RF function in here, and we'll pass in N est and depth as parameters. 
+  And then what this function will do is it'll build and evaluate a model for each iteration through that nested for loop.
+  So for the number of estimators, we'll use the default of 10, and then we'll try 50, and we'll try 100. And then for depth so we'll try 10, 20, 30, and none. And the nested loop
+  will iterate through each combination of these parameter settings, and train a model, evaluate the model on test set and then print out results.
+- So to implement above, in the function body, instantiate RandomForestClassifier with n_estimators set to n (passed as parameter to function train_rf) and max_depth = depth (passed as parameter)
+  and n_jobs = -1 and store it to object rf.
+- Then call fit function on rf and store to rf_model object and we'll call predict function of rf_model object. Then print out the metrics by score function by passing y_test,y_pred
+  pos_label= 'spam' and average= 'binary' and assign it to corresponding variables (precision,recall,fscore,support). Print out the results along with the hyperparameter settings for each
+  iteration
+- We can see that on adding depth, the recall percentage increases but while adding on estimators has sight difference in the output.
+
+Demo using grid search and cross-validation - grid-search cv
+--------------------------------------------------------------
+- We'll create default tool for tuning models.
+- This method allows to define a grid of parameters that we want to explore and then within each setting it will run cross-validation.
+
+Steps
+-----
+- Read in and clean data
+- Run tf-idf and stored that as X_tfidf_feat. And then run CountVectorizer and stored that as X_count_feat.We're doing this because this framework will allow us to test 
+  which of these vectorizing frameworks works better.
+- Import RandomForestClassifier and GridSearchCV modules.
+- Instantiate RandomForestClassifier without any parameters and define the grid which will take the form of a dictionary and we'll assign that to param.
+  Parameter grid will be a dictionary. Within this dictionary, the key values will be the parameter name and then the values will be the ranges that we want to explore. 
+  Pass in a list of values for these parameters. For n_estimators, we'll pass [10,150,300] and for max_depth, we'll pass [30,60,90 and None]
+- Next, we have rf and grid parameters ready, we will construct GridSearchCV object. Pass in model (rf), parameter grid(param), how many folds we want (cv=5) and n_jobs = -1 and store in a object gs
+- Call gs.fit(). For parameters, pass X_tfidf_feat, data['label'] and store it in gs_fit object
+- Then use, gs_fit.cv_results_ and this will print out all the results across all the folds across all the parameter settings. The output is messy and hence we're going to clean it up
+  by passing it into a data frame by wrapping this gs_fit.cv_results_ in pd.DataFrame and then sort values on mean_test_score in descending order and print results.
+- Do the same for count vectorization
+- On running one by one, what we can see is, there will one row per one parameter combination in this dataframe. Important parameter details as below
+  1) mean_fit_time is the average time it takes each model to fit
+  2) mean_score_time is the average amount of time it takes each model to make a prediction on the test set
+  3) mean_test_score is the average accuracy on the test set
+  4) mean_train_score is the average accuracy on the training set
+- Results, max_depth 90 and estimators - 10 have high scores while tfidf outperforms count vectorizer. No of estimators matter more for count vectorizer
+
+NOTE - We will repeat the exact same things by using difference vectorizer and modifying different values for parameters in vectorizer and include/exclude punctuatuion/stopwords and
+       various other combinations, to zero down on a model after examining 100 or thousands of models
+
+Gradient Boosting
+-------------------
+- It is alsoe an Ensemble method.
+- Gradient boosting takes an iterative approach to combining weak learners to create a strong learner by focussing on mistakes of prior iterations.
+- Gradient boosting uses decision trees as well, but they are incredibly basic, like a decision stump and then it evaluates what it gets right and what it gets wrong on that first tree.
+  and then with next iteration it places a heavier weight on those observations that it got wrong and it does this over and over and over again focusing 
+  on the examples it doesn't quite understand yet until it has minimized the error as much as possible.
+- Gradient model uses a method called boosting and RF uses a method called bagging. 
+- Both of these methods include sampling for each different tree that is built. 
+  The five second version of the difference between boosting and bagging is that bagging samples randomly, 
+  while boosting samples with an increased weight on the ones that it got wrong previously. 
+  Because all the trees in a random forest are built without any consideration for any of the other trees, this is incredibly easy to parallelize, 
+  which means that it can train really quickly.
+- So if you have 100 trees, you could train them all at the same time. Whereas gradient boosting is iterative in that it relies on the results of the tree before it in order to 
+  apply a higher weight to the ones that the previous tree got incorrect. 
+  So boosting can't be parallelized and so it takes much longer to train. As you get into massive training sets, this becomes a serious consideration. 
+- Another difference is that the final predictions for random forest are typically an unweighted average or an unweighted voting, while boosting uses a weighted voting.
+- Random forest is easier to tune, faster to train and harder to overfit, while gradient boosting is harder to tune, slower to train, and easier to overfit.
+- The trade off is that gradient boosting is typically more powerful and better-performing if tuned properly
+
+Benefits
+---------
+- Well, it's one of the most powerful machine learning classifiers out there. 
+- It also accepts various types of inputs just like random forest so it makes it very flexible. 
+- It can also be used for classification or regression
+- Outputs feature importances which can be super useful.
+
+Drawbacks
+------------
+- Some of the drawbacks are that it takes longer to train because it can't be parallelized
+- It's more likely to overfit because it obsesses over those ones that it got wrong.
+- It can get lost pursuing those outliers that don't really represent the overall population.
+- And it's harder to tune because there are more parameters.
+
+Demo for gradient boosting using grid-search
+--------------------------------------------------
+- Read in and clean the data and use tfidf vectorizer
+- Import gradient boosting classifer
+- Explore by outputting different attributes and method and different parameter and hyperparameter settings. Default for max_depth is 3 and n_estimators is 100
+- RF is built with a couple fully grown trees, whereas gradient boosting uses a lot of very basic trees. No n_jobs parameter as there is no paralellism in GB. learning_rate is a parameter
+  which determines how quickly an algorithm optimizes but it also has performance implications because it can cause the model to optimize too quickly without actually finding the best model
+- Do entry validation and holdout set
+- For building grid search, import metric modules and train test split. Call the train test split and populate the variables (X_train,X_test,y_train,y_test). We'll build basic for loop
+  and within that for loop,we'll have a function that we built, to train a model on custom parameter settings and then write out the results of that model.
+- The first thing that we need to do, is instantiate our gradient boosting model. And what we're going to pass in, is n_estimators, 
+  is going to take the est parameter that's passed in from our function, and then we'll set max_depth=max_depth passed in from the parameter and lastly learning rate.
+- Call fit method and store in gb_model
+- Call predict method and on gb_model and store in y_pred
+- Call the score method by passing the same parameters and store all the 4 metrics in the corresponding variables.
+- Print out the results
+- Worst models - Learning rate - 0.01,very low max depth and very low number of estimators.
+- Best models - Learning rate - 0.1,high max depth and high number of estimators.
+
+Demo to evaluate performance of gradient boosting model
+--------------------------------------------------------
+- GridsearchCV will do is it allows you to define a grid of parameters that you want to explore, and then within each hyper-parameter setting, that will run cross-validation.
+- Create df's with tfidef and count vectorizaton and run it.
+- Import gradientboosting and gridsearchcv modules
+- Instantiate the gb classifier and define parameters n_estimators [100, 150],max_depth[7,11,15] and learning_rate[0.1].
+ Note - In the last demo, Keeping parameter settings in certain way did yield us the optimum model results. But these model settings where evaluated only on one portion of the dataset
+.By using k-folds, we can cover the whole dataset and do testing for all parts of dataset and hence we generate 5 models using the hyper parameter settings.
+- Call the GridSearchCV function with parameters gb,param,cv=5 and n_jobs=-1 and assign to gs. By giving n_jobs=-1, it'll train under different subsets and parameter settings in parallel
+  and it does not mean that each of the model is trained in parallel, as each iteration is based on prior iteration
+- Call gs.fit() and pass X_tfidef_feat and data['label'] as parameters and store it as cv_fit
+- Call cv_fit.cv_results_ and wrap in to dataframe and sort it on mean_test_score with ascending = false and print top 5 models
+- Repeat the same steps above for count vectorizer
+- mean_test_score will be around 96% for top models while we use both tfidf and count vectorizer
+
+Machine learning Pipeline
+---------------------------
+1) Read in raw text
+2) Clean text and tokenize
+3) Feature engineering
+4) Fit simple model
+5) Tune hyper parameters and evaluate with GridSearchCV
+6) Model selection
+
+Model Selection
+---------------
+- We will compare our best performing models to select the very best model
+
+Bending the rules a bit
+----------------------------
+- Vectorizers are like models. They need to be fit on a training set and then stored in order to transform the test set. 
+- So when we say fit on the training set, in the context of a vectorizer, it basically just means it stores all of the words in the training set. 
+- Then when it transforms the test set, it will only create columns for the words that were in the training set. 
+  Any words that appear in the test set but not in the training set, will not show up in the vectorized version of the test set. 
+  The vectorizer will only recognize words that it saw in the training set.
+
+- Up to this point, we've been training the vectorizer on the entire data set, instead of just the training set because it makes things easier with GridSearch and breaking them apart would require an introduction to scikit-learn pipelines, 
+  .Now we're going to tweak our process just a little bit as we go into the final model selection. 
+   What this process will look like is the following. 
+   1) We'll split into training and test set, and then 
+   2) We'll train the vectorizers on the training set and use that to transform the test set.
+   3) And then we'll fit the very best gradient boosting model and the best random forest model on the training set and then predict on the test set. 
+   4) And then lastly, we'll thoroughly evaluate the results of these two models to select the very best model.
+   
+Steps
+------
+- Read in text,creating our new features, and then creating our cleaning function
+- But instead of vectorizing and then splitting into the training and test set like we have been doing, 
+  we're going to split into the training and test set first and then we'll train the vectorizer on the training set and then use it to transform the test set.
+- Call the train_test_split function with body_text,body_len and punct% as columns and label as the target value and test_size as 20% parameter and store the results in X_train,X_test,y_train, y_test
+- Vectorize using tfidf vectorizer and call fit method on X_train['body_text].
+- Then call transform methods on X_train['body_text] and X_test['body_text] separately and both will have same number of columns since both are transformed by using tfidf vect which was
+  fit on training dataset and it recognizes words in only the training set and create columns for words in training set
+- This results in sparse matrices and so we will have to concatenate the vectorized data with body length and punctuation to give us our X_features. 
+- Concatenate X_train['body_len','punct%'] with tfidf_train which is wrapped around by a df and due to which we have to reset index of X_train df, to match indices.
+- And do the concatenate for X_test as well
+- Previously, vectorizer recognized around 8000 words and noww just above 7000 words since the vectorizer was fit only on training data. This tells us that are around 1000 words
+  in the test set that won't be recognized by the vectorizer. So they'll essentially be ignored.
+  
+Evaluating final model selection
+-----------------------------------
+- Import rf and gb classifier module and scoring modules from sklearn.metrics and import time to count how long it takes to train and test
+- Write 2 separate code pieces for RF and GB models with the optimized parameters for n_estimators,max_depth and n_jobs (for RF only) as calculated from previous demos.
+- Fit on training dataset and predict on test dataset and then score based on y_test and y_pred and print the performance results
+- And introduce start=time.time() before fit and end=time.time() after fit() and calculate fit_time = end-start and do it for predic method as well and repeat the same
+  2 steps for GB model as well
+- Run both the pieces of code
+- For the final comparison, what we want to do is we want to compare Fit time, Predict time, Precision, Recall, and Accuracy between these two models with a
+  particular focus on Predict time, Precision, and Recall.
+  - The reason being that once these models are fit, you generally store them for the purpose of making predictions later on. 
+    They wouldn't really ever be refit or retrained again until you decide that your current model needs to be replaced.
+- You'll notice that even though GradientBoosting takes way longer than RandomForest does to fit, it actually takes less time to predict. 
+  In terms of precision and recall, our RandomForest has much better precision at 100%, but GradientBoosting has slightly better recall.
+- If we pick RF, that means we care more about precision than we do predict_time or recall and vice versa.
+- 2 final points
+ - 1) Generally, we dive in to the metrics more than here not just precision and recall. We usually split the test_set in to variety of different ways across a number of different
+   dimensions. Ex: Let's take text message with length>50 and consider only that or text messsages with 0 punctuation and see how model does there.
+   Also, look at the specific text messages that model is getting wrong.
+   2) Results trade off - make the decision based on the buisness problem/context
+	  Ex: If predict time >0.2 s is going to create bottleneck ? 
+	  or Most problems either have a higher cost on false positives, which means you would prioritize precision or false negatives, which means you'd prioritize recall.
+	  For ex: For a spam filter, you do not mind spam mails in your mailbox but you would not want the spam filter to capture real emails. So we'd prioritize here for precision.
+	  Second case - Antivirus software, false positives where they say that you have a virus but you really don't , that can be scary without a doubt.
+	  But if you're getting hacked and your software doesn't catch it, that's much, much worse. This case, we should optimize for recall so that if there's a breach, 
+	  the model better be able to catch it.
+
+- Assuming predict time is not a prob. We will pick RF model since precision is better than GB model and recall is very close to that of GB model
+	  
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+			
+
+  
+
+
+
+
+
+
+
+
+   
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+

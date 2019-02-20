@@ -1,0 +1,100 @@
+Recommendation Systems
+-------------------------
+2 types of collaborative filtering
+---------------------------------------
+1) Item based - Ex: User A and B gave 4 stars to both mobile phone A and its case. Hence when User C purchases the phone A, we recommend the phone case as well
+
+2) User based -  Suppose there is a dataset for 3 persons (A,B and C) where the attributes like age, networth and the marital status are captured. If employee B, takes a life insurance
+then we recommend the insurance to A and C, if they have similar parameters for the 3 attributes
+
+Content based recommenders
+-----------------------------
+Ex -  Based on Average cost of living, average temperature and average wifi speeds among different cities, we can determine that a person A, would like to live in other city if it
+has similar values for these attributes for the current city he is living.
+
+Popularity based recommentation systems
+----------------------------------------
+- 2 datasets, 1st with the user ratings given to a place for various parameters like food,service etc. 2nd the place and the type of cuisine offered.
+- By grouping the number ratings given for each place and joining with the cuisine table, we can determine which is the most popular place and which are the most popular cuisines offerd
+
+Co-Relation based recommentations
+-----------------------------------
+- Use pearson's r co-relation to recommend an item that is most similar to the item  a user hsa already chosen.
+- Item- based similarity - How corelated are two items based on user ratings?
+- Excercise done was to recommend a restaurant of same cuisine for a user who goes to the restaurant with highest ratings.
+- 3 datasets - User and rating count dataset, cuisine dataset and place name (geodata) data sets
+ Steps 
+ -----
+ 1) Analyze the datasets and calculte count and mean on each of the restaurants.
+ 2) Create a pivot table of user as index and place id as column.
+ 3) Isolate the ratings given by user for the highest rated restaurant
+ 4) Now use pearson r co-efficient to find restaurants with high pearson co-eff and ignore the ones with pearson's co-eff as 1 (this suggests only 1 reviewer in common for both
+	restaurants and he gave same rating to both restaurants).
+ 5) Filter restaurants with high pearson's co-eff and check for the type of cuisine they offer
+ 6) Recommend the restaurants with high pearson's coeff and same cuisine offered as the highly rated restaurant
+ 
+ 
+Classification based collaborative filtering
+------------------------------------------------
+- These recommenders could be powered by Logistic regression or Naive Bayes classification
+- These classification based recommenders provide personalized recommendations by taking in to account User and item attribute data (if the user purchased or not purchased in the past)
+, purchase history data (what purchases users have made or not made in the past) and other contextual data (based on hour,season or through user browser cookies)
+- Demo consists of a dataset where we have a list of user attributes like job_in_managements, job_as_maid, credit_card_default, Home_loan_existing and we capture binary values
+  for all these variables (1 for yes and 0 for no) for different users in the dataset.
+- Based on these values, we will create a list for all these values of a user and present it to logistic regression model and predict whether the user will be part of marketing 
+  campaign or not which is the target variable already part of the dataset.
+  
+Model based collaborative filtering
+--------------------------------------
+- We build a recommender model from user ratings, and make recommendations based on that model.
+- We use SVD and utility matrices (which are sparse (contain mostly null values) in nature) of ratings given by user vs item 
+
+Singular value decomposition
+-----------------------------
+- A linear algebra method that can decompose a utility matrix in to 3 compressed matrices
+- Model based recommenders use these compressed matrices to make recommendations without having to refer back to the complete dataset.
+- With SVD we cover latent variables - Inferred, non observable variables that are present within, and affect the behaviour of dataset.
+
+Anatomy of SVD
+----------------
+- A = u*S*v
+- A is the original utility matrix
+- u is a left orthogonal matrix which holds important, non-redundant information about users
+- v is a right orthogonal matrix which holds important, non-redundant information about items
+- S is a diagnonal matrix - contains all information about decomposition process performed during the compression 
+
+Demo for model based recommenders
+---------------------------------------
+- 2 datasets, one with user details and another with movie details
+- Combine the datasets using merge command
+- Construct a utility matrix with users as rows and movie names as columns
+- Since our job is to recommend movies, we will not compress movies but compress user data to 12 components to provide a synthetic representation 
+- Transpose to get movies as rows and user details as columns and then apply SVD fit transform to get a 1664*12 matrix where the user data
+  is reduced to 12 columns which represents the user taste.
+- Next, We generate a co-relation matrix by applying pearson's co-efficient and generate a 1664*1664 matrix and check which other movie is similar based on generalized user tastes and which
+  can be recommended. We use the star wars as reference and examine how well its user ratings co-relate to user ratings given to other movies in the dataset
+  as it has highest ratings and suggest to users which are other movies they might be interested to watch.
+- Once the co-relation matrix is created, extract the co-relation values of the row specific to star wars and then put filters to the movies with the highest co-relation value
+  which can be recommended to users
+  
+Content based recommenders
+---------------------------
+- Recommends an item based on its features and how similar they are to features of other items in the dataset.
+- Here we use, nearest neighbour algorithm which is a unsupervised learning technique and is a memory based system. Memorizes instances and then recommends an item (single instance)
+  based on how quantitatively similar it is to a new, incoming instance.
+- Example - Suppose a customer comes and says that he wants to buy a car which offers 25 miles per gallon, 425 horsepower and has an engine size of 4.7l. Based on nearest neighbors
+  approach, we will recommend once single instance which is a car here that represents customer's desired specifications.
+  
+Evaluation metrics
+------------------
+1) Precision = The no. of items that i liked that were also recommended to me
+			   ------------------------------------------------------------------
+			   The number of items that were recommended
+			   
+2) Recall (measure of model's completeness) = The no. items that I liked that were also recommended to me
+											  -------------------------------------------------------------
+											  The no. of items that I liked
+											  
+- High precision + High recall = Highly accurate model results
+- 87% precision - 87% of the recommended items were items that user actually liked
+- 89% of the user's preferred items were recommended.

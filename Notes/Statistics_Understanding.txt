@@ -1,0 +1,889 @@
+Mean
+-------
+Mean = Sum of data points/number of data points
+
+Ex: 
+
+Student - Marks
+1		- 80
+2		- 90
+3		- 75
+4		- 50
+5 		- 75
+6		- 82
+
+Mean - 75.33333
+
+Median
+---------
+For odd number of even points, the mid value after the datapoints are sorted. For even number of data points, the mean/average of 2 mid values after
+the data points are sorted.
+
+Ex:
+
+Student - Marks
+1		- 80
+2		- 90
+3		- 75
+4		- 50
+5 		- 75
+6		- 82
+
+Sorted ascending
+-------------------
+50
+75
+75
+80
+82
+90
+
+Median - 75+80/2 = 77.5
+
+Mode
+-------
+If there are repitition of data points in a datset. The most repeated datapoint constitute the mode.
+
+Ex
+
+Student - Marks
+1		- 80
+2		- 90
+3		- 75
+4		- 50
+5 		- 75
+6		- 82
+7		- 75
+8		- 82
+
+Mode - 75
+
+
+Weighted mean
+----------------
+If there are different categories of datapoints and importance of each category varies, a weighted mean would be helpful
+
+Categories - Weight	- Points scored - Weighted Mean
+									  (weight*points scored)
+Exam1		- 30%	- 80			- 24
+Exam2		- 30%	- 82			- 24.6
+Quiz		- 10%	- 70			- 7
+Homework	- 10%	- 95			- 9.5
+Term Exam1	- 20%	- 78			- 15.6
+
+Mean(based on column points scored) = 81 
+Weighted mean = Sum of values in column Weighted Mean = 80.7
+
+Range
+------
+The difference between the highest datapoint and the lowest datapoint in the dataset
+
+Student - Marks
+1		- 80
+2		- 90
+3		- 75
+4		- 50
+5 		- 75
+6		- 82
+7		- 75
+8		- 82
+
+Range - 40
+
+Standard Deviation
+--------------------
+- Sort of average distance from the mean
+- It is the average square distance from the mean
+
+S = sqrt((1/N-1)* Sigma(xi-mean)^2)
+ where N is number of datapoints
+ and xi are the individual datapoints
+
+Ex:
+
+Student - Marks
+1		- 80
+2		- 90
+3		- 75
+4		- 50
+5 		- 75
+6		- 82
+7		- 75
+8		- 82
+
+Mean - 76.125
+
+S = sqrt(((80-76.125)^2 + (90-76.125)^2 + (75-76.125)^2 + (50-76.125)^2 + (75-76.125)^2 + (82-76.125)^2 + (75-76.125)^2 + (82-76.125)^)/7)
+  = sqrt((15.015625+192.515625+1.265625+682.515625+1.265625+34.515625+1.265625+34.515625)/7)
+  = sqrt(137.553571428571)
+  = 11.7283234704953
+  
+Variance = 137.553571428571
+Standard Deviation = 11.7283234704953
+
+Outlier
+----------
+Is a datapoint which lies at an abnormal distance from other values in the dataset
+
+Ex - May be a datapoint which lies at 3-4 standard deviations from mean.
+
+Outlier should be studied in order to identify new trends and analyze on the cause for the occuring outlier
+
+Z-Score
+--------
+Z-Score gives the value with regard to how many standard deviations away is a datapoint from the mean.
+
+Formula - Z-Score = (xi-mean)/standard deviation
+
+Ex:
+Student - Marks
+1		- 80
+2		- 90
+3		- 75
+4		- 50
+5 		- 75
+6		- 82
+7		- 75
+8		- 82
+
+Z-Score of highest datapoint (90) = (90-76.125)/11.7283234704953
+Z-Score of highest datapoint (90) = 1.1830335
+
+Data point 90 is 3.13001253186881  standard deviations away from the mean.
+
+Empirical Rule
+--------------
+- In a symmetric dataset, all the data points fall within 3 standard deviations from the mean. 
+Hence it is called 3 sigma rule (sigma is standard deviation)
+
+For a normal distribution (bell shaped curve)
+- It says about 68% of data points lie within 1st standard deviation of the mean.
+- It says about 95% of data points lie within 2nd standard deviation of the mean.
+- It says about 99.7% of data points lie within 3rd standard deviation of the mean.
+
+Percentile
+------------
+Percentile = (((number of values below x) + 0.5)/Total number of values)*100
+
+Probability
+---------------
+- Ratio of desired outcomes to the possible number of outcomes.
+
+Ex1 - Probability of 3 consecutive heads
+Ans - 3P2 (3 times the coin is tossed with the 2 possible outcomes)+2P2 (No of possible outcomes for each toss)
+	- 6+2
+	- 8
+
+Ex2 - Probability of 2 sixes while rolling a pair of dice
+Ans - 6P2(6 outcomes for each of the 2 dices) + 6P1 (No of possible outcomes for each of the dice)
+	- 30+6
+	- 36
+	
+Types of probability
+--------------------
+1) Classical probability - which is fair and reliable Ex: Dice roll,coin toss
+2) Empirical probability - based on past data Ex: Probability of a player to be selected for a free throw 
+						   (No of free throws player has done/No. of free throws taken by the team this season)
+						   also other reasons like game situation, player situation, player health can be considered
+3) Subjective probability - Opinion based probability based on someone's knowledge and experience 
+							(Ex : Probability of Unemployment rate in India will go down next year)
+							
+
+Probability of multiple events
+---------------------------------
+Addition rule = Event1/no of possible outcomes + Event 2/no of possible outcomes - Overlapping event/no of possible outcomes
+
+Ex: While tossing 2 coins simultaneously. What is the probability that there are 2 heads or one head
+Ans - Possible outcomes - HH,HT,TH,TT
+	  Addition rule = 3(Event 1 - Anyone head)/4+ 1(Event 2 - Both heads)/4 - 1(Overlapping events)/4 = 3/4 = 75%
+	  
+Ex: While tossing 2 dices simultaneously. What is the probability of getting 6 either in first or second dice ?
+Ans - Addition rule = 6/36+6/36-1/36 = 11/36 = 30.56%
+
+
+Bayes Theorem
+--------------
+P(A/B) = P(B/A) * P(A)
+	------------------
+	Sigma(P(B/Aj)P(Aj)
+	
+Example : 1 in 10000 people have the disease. If you test positive then there is 99% chance that you have the disease.
+		  What is the proability that the test results might have been wrong (False positive) ?
+		  
+					True Positive													For 1 million people
+1/10000 (Diseased)-------------------------0.99------------>0.000099(0.0001*0.99)-	99
+(0.0001)			|True Negative
+					|----------------------0.01------------>0.000001(0.0001*0.01)-	1
+							False Positive
+9999/10000(Not Infected)-------------------0.02------------>0.019998(0.9999*0.02)-	19998
+(0.9999)				|False Negative
+						|------------------0.98------------>0.979902(0.9999*0.98)-	979902
+						
+						
+100 people actually have the disease. Out of those 99 people will test positive and have the disease.
+999900 peopople will not have the disease. But, 19998 will result in positive test.
+
+If I test positive, how worried I should be ?
+Out of 1 million people, 20,097 will test positive. But only 99 people have the disease. So if you test positive there is only 0.5%(99/20097) chance 
+that you have the disease.
+
+Binomial Experiment
+-----------------------
+Ex: From every monthly meeting of new hires only 20% join the organization. What are the chances that only one of 3 people (A,B and C) 
+will join organization ?
+
+This can be achieve in 3 ways.
+
+A joins, B and C do not join - (0.2*0.8*0.8) - 0.128 - 12.8%
+B joins, A and C do not join - (0.2*0.8*0.8) - 0.128 - 12.8%
+C joins, A and B do not join - (0.2*0.8*0.8) - 0.128 - 12.8%
+
+So the probability that only one person joins the organization is (0.128*3) = 0.384 = 38.4%
+
+Ex2: What are the chances that only two of 3 people (A,B and C) 
+will join organization ?
+
+This also can be achived in 3 ways
+
+A and B join, C does not join - (0.2*0.2*0.8) - 0.032 - 3.2%
+A and C join, B does not join - (0.2*0.2*0.8) - 0.032 - 3.2%
+B and C join, A does not join - (0.2*0.2*0.8) - 0.032 - 3.2%
+
+So the probability that only two person joins the organization is (0.032*3) = 0.096 = 9.6%
+
+Fuzzy Central Limit Theorem
+------------------------------
+Data influenced by many small and unrelated random effects are normally distributed.
+
+Central Limit Theorem
+-----------------------
+Central limit theorem tells us that the more samples we take, the closer the means of our sample means will get to the population mean.
+
+Bins	-	Frequency -	Mean		- Weighted mean
+5		-	5		  - 0.25 (5/20)	- 1.25
+10		- 	2		  - 0.1	(2/20)	- 1
+15		- 	4		  - 0.2			- 3
+20		-	6		  - 0.3			- 6
+25		-	3		  - 0.15		- 3.75
+
+Average of 20 different readings - 15.0
+
+Sample 1 - 10,15,20,25
+Mean1 = 17.5
+
+Sample 2 - 5,15,20,20
+Mean2 = 15
+
+Sample 3 - 5,5,15,20
+Mean3 = 11.25
+
+Average of means of samples - 14.58
+
+As sample size increases the curve becomes more normal and the standard deviation gets smaller.
+
+Standard Error for proportion
+--------------------------------
+The standard error is the standard deviation of our proportion distribution
+
+Standard deviation sigma p(proportion population) = sqrt(p(1-p)/100)
+
+Ex: 60% of adults are satisfied with the cell phone provider. Sample size is 100
+
+sigma p = sqrt(0.6*(1-0.6)/100) = 0.05 = 5%
+If we assume normal distribution, 68% (empirical formula) of random sample to provide sample proportion between 55% and 65% (due to 5% standard error).
+
+Standard error for means
+-------------------------
+Standard deviation of sample means = standard error
+
+sigma xbar (standard deviation of sample means) = sigma (standard deviation of population)/sqrt(n)
+
+
+Confidence Interval
+---------------------
+- Deals with analyzing results of one sample
+- Example - We're 95% confident that the average adult in India drinks between 2 and 3 litres of beverages per day.
+- Instead of taking the poll only once, we took a similar poll 20 times, 19 times the resulting ranges of those 19 polls, they would capture the 
+population mean. 1 of the poll does not capture the population mean.
+
+Ex - 95% confidence interval between candidate A and candidate B
+
+- Gather a random sample of 100 votes. 55% vote for candidate A and 45% vote for candidate B.
+
+- For a 95% confidence interval, we need to capture 95% area under the curve betweeen points equidistant from the sample proportion
+which means 2.5% area under the curve left and right side of curve will not be included.
+- For the above we need to capture z-scores.
+- Z-Scores tells us how many std deviations away from the mean we would need to be to capture a certain percentage of total distribution.
+- We need to find the z-score where the value is 0.975 (0.025 to be excluded) for 95% confidence interval which is 1.96 from the z-score table.
+- Sample proportion - 0.55
+- Upper limit = 0.55+1.96(Standard deviation)
+- Lower limit = 0.55-1.96(Standard deviation)
+- standard deviation or sampling error (since we are using sample proportion) = 0.55/sqrt(100) = 0.05
+- lower limit - 0.452
+- Upper limit - 0.648
+- We are 95% sure that, candidate A will receive between 45% and 64.8% of vote (which means the proportion interval is between 45% and 64.8%)
+
+Confidence Interval for sample means-
+----------------------------------------
+For 95% confidence interval
+Upper limit of interval = xbar (Sampling mean) + 1.96(sampling error)
+lower limit of interval = xbar (Sampling mean) - 1.96(sampling error)
+
+- For example, there is a 95% chance that the population mean for the one mile run time for females in 20's is somewhere between 8.08 and 9.84 minutes
+- With increase in sample size, we can decrease the size of the interval
+
+Hypothesis Testing
+---------------------
+Example - In a town of population 35000. 50% are men and 50% are women. Every week, 50 people are chosen at random for jury duty. Women have complained
+that they are being called for jury duty more than men. But the jury group that selects the jurors have stated that the selection is random.
+We select the next sample as the test case. In the sample, 36 women and 14 men are selected as jurors.
+
+4 step process
+
+Step 1a) Develop Hypotheses
+-------------------------------
+H0 - Null hypothesis
+
+Jury numbers happened by chance
+Shows odds of woman being picked as 50%.
+
+H0 is p<= 0.50
+
+Ha - Alternative hypothesis
+
+Jury numbers not by chance
+Shows odds of women being picked as higher than 50%
+
+Ha is p>0.50
+
+Step 1b) State Significance level
+--------------------------------------
+Set threshold for test.
+
+Significance level = 5%. If 36 or more women ending up on a jury have less than a 5% chance of occuring at random, then we will reject our null
+hypothesis
+
+Step 2) Identify a test statistic
+---------------------------------------
+Use the binomial probability
+ p=0.5
+ number of trials - 50
+ number of successful trials is 36
+
+Step 3) - Determine P-value
+-------------------------------
+Looking for the probability that the number of women chosen for the jury-panel would be 36 or more.
+ Probability = 0.0013 or 0.13%
+ 
+Step 4) - Compare P-value to Significance level
+-------------------------------------------------
+There was only a 0.13% (p value) chance that at random 36 or more women would be chosen for a panel of 50 potential jurors.
+- Alpha was 0.05 or 5%
+- p value < significance level and hence we must reject the null hypothesis.
+ 
+Type I and Type II errors
+-----------------------------
+H0 - No cancer
+Ha - Cancer
+
+Average reading - 100
+Reading above 125 - Get a positive result. This means they have Cancer
+Reading below 100 - No cancer
+
+- In a normal curve, 100 will be mean. Area falling right side of 125 will be to reject null hypothesis and area falling left of 125 will not rejet
+null hypothesis
+- A postive test and does not have cancer - Type I error (False positive)
+- A negative test and does have cancer - Type II error (False negative)
+
+Stats - 3
+----------
+T-Distribution is used when the sample size is less than 30 or if we are creating
+a confidence interval where the population variance is unknown then we need to use T-Distribution otherwise we can use the z-score.
+
+Differences between z-test and t-test
+---------------------------------------
+z-test
+---------
+- Compare sample to population
+- The sample comes from the population. Means of sample and population are intertwined
+
+t-test
+----------
+- Compares 2 completely independent samples
+- They don't have to come from the same population
+- T-Distribution is not one curve but its a series of curves.
+- Each curve is a representation of distribution of different sample sizes. Smaller the sample size flatter the curve. Larger sample size, it approaches
+closer to a normal curve or z-distribution.
+- Since t-dist curves are flatter compared to z-dist curve. The critical scores are higher than those of z-dist.
+- For 95% conf interval, the z-score is 1.96
+- For 95% confidence interval, below are the t-scores
+
+Sample size	-	t-test
+3			-	4.303
+10			-	2.262
+20			-	2.093
+100			-	1.98
+
+T-Distribution Chart
+---------------------
+It contains degrees of freedom (sample size - 1) as the row label and the confidence level as the column label. Larger the sample size smaller the t-scores
+
+Ex: New Score Range: 50-200 points.
+	Old Average Score: 130 points.
+	Want to see how the average score for the updated exam compares against the old version. They want to create a 98% confidence interval
+	for the updated exam's mean score.
+	
+- In ordered to do so , the organization gave the updated test to a random sample of 10 aspiring college students
+
+- Scores - 120,105,100,130,115,100,185,105,130,170
+- Mean - 126, Standard deviation of sample - 29.51
+- Degrees of freedom - 10-1 = 9
+- From the t-distribution table, for the row label - 9 and column label(1-tail - 0.01 and 2-tail - 0.02) (98% confidence interval), the t-score is 2.821
+- Standard error (SExbar) = S/sqrt(n) -> 29.51/sqrt(10) = 9.33
+- UCL = Sample mean + tscore(approx std error  of the mean) = 126+2.821(9.33) = 152.3
+- LCL = Sample mean + tscore(approx std error  of the mean) = 126-2.821(9.33) = 99.7
+- Hence, we can say that we are 98% sure that the population mean falls between 99.7 and 152.3 points.
+- 95% confidence interval would be from 105 to 147 with t-score of 2.262
+
+Comparing 2 populations (Proportions)
+---------------------------------------
+- Company testing a drug which will reduce heart attack.
+
+				No of individuals		#of heart attacks		phat		rate(%)
+New drug	-	2219				-	26					-	26/2219	-	0.0117(1.17%)
+Placebo		-	2035				-	46					-	46/2035	-	0.0226(2.26%)
+
+Confidence Interval
+-------------------
+
+Difference in phats = 0.0226-0.0117 = 0.0109
+1.09 % between sample proportions	
+
+True difference of population proportions = observed difference from samples +/- [Critical value x Standard error]
+
+For a 95% confidence interval, z-score (critical value) = 1.96
+Standard error = sqrt((p1hat(1-p1hat)/n1)+(p2hat(1-p2hat)/n2)) = 0.0040
+ Upper limit = 0.0109 + (1.96*0.0040) = 0.0188
+ lower limit = 0.0109 - (1.96*0.0040) = 0.0030
+ 
+- We are 95% confident that the new drug reduces the population's chance of heart attack somewhere between 0.3% and 1.88%
+
+Hypothesis Testing
+-----------------------
+Question - What's the probability that our results happened by chance ?
+Hypothesis test evaluated 2 mutually exclusive statements about a population to determine which statement is best supported by the sample data.
+
+1) Develop hypotheses
+
+Null - H0 - Population proportion placebo - Population proportion of new drug = 0 (New drug had no effect)
+H1 - Population proportion placebo - Population proportion of new drug != 0 (New drug had some effect)
+
+- Significance level - 5%
+
+If there is less than a 5% chance the results of our study could have happened by chance, then we will reject null hypothesis (H0).
+
+2) Identify a test statistic
+
+- Test statistic is Z- Statistic
+
+3) Calculate the statistic value
+
+z = (phat1- phat2)- (p1-p2)sub0 --> (population proportion of null hypothesis which is 0 for both p1 and p2)
+	-----------------------------
+	sqrt((p1hat(1-p1hat)/n1)+(p2hat(1-p2hat)/n2)) ---> (Standard error)
+	
+z = 0.0109
+	------
+	0.004
+	
+z = 2.725
+
+- A 2 tailed test with a 5% significance level will result in z-score of 1.96.
+- Since the resultant z-score 2.725 is more than the significance level 1.96 i.e, since it is more than 1.96 std deviations away from the
+null hypothesis mean (which is 0), we will reject the null hypothesis
+
+Comparing 2 populations (Means)
+----------------------------------
+A set number of students were divided in to 2 random groups. The first group students were asked to learn a math concept from text book and the second
+group students were asked to learn the math concept via digital medium. After the learning completion, both group of students were given a test of 
+20 questions and the result as follows
+
+Digital group
+---------------
+n =120 (sample size)
+xbar (mean) = 16.2
+SD = 2.5
+
+Text group
+-----------
+n = 80
+xbar (mean) = 14.1
+SD = 3.6
+
+16.2 - 14.1  = 2.1
+ The average score of digital group is 2.1 questions higher than the text book group.
+ 
+Confidence Intervals
+---------------------
+True difference  of population means  = observed difference from samples +/- [critical value * standard error]
+
+Standard error = sqrt(s1^2/n1 + s2^2/n2)
+SE = 0.462
+
+UCL = 2.1 + (1.96*0.462) = 3.01
+LCL = 2.1 - (1.96*0.462) = 1.19
+
+We are 95% confident that the online video helps to improve the performance for this particular test by atlease 1.19 questions, and perhaps as
+high as 3.01 questions.
+
+Hypothesis Testing
+---------------------
+Null hypothesis (H0) - Population mean score for video - Population mean score for text = 0 (No differnce made on results based on the medium of learning)
+Alternate Hypothesis (H1) - Population mean score for video - Population mean score for text > 0 (Online video has an impact)
+
+Significance value - 1% (alpha value)
+
+- The difference between the test scores is 2.1 questions which is to the right of the normal curve.
+
+- Reject H0 if outcome has less than 1% chance of occuring.
+
+- For this we need a z score associated with 0.99, which is 2.33.
+- If outcome is > 2.33 SD away from 0, then reject H0.
+- Need to know size of 1 SD but we have only sample data 
+- Larger sample size, so standard error  = standard deviation
+
+standard error = sqrt(sigma1^2/n1 + sigma2^2/n2)
+				= 0.462
+				
+zscore = (x1-x2) - (mu1 - mu2) --> this will be 0 since null hypothesis takes 0 as population means
+		------------------------
+			standard error
+		= 2.10/0.462
+		= 4.53
+
+- We are far beyond 2.33 standard deviations from the mean. Infact, we are 4.54 standard deviations from mean. And hence we reject null hypothesis.
+- And hence it does seem that online video is more effective than textbook.
+
+Chi Square
+----------
+- Goodness of fit test is a chi-square technique which is used to perform hypothesis tests to compare two or more populations.
+- We cannot use t-test if the data is divided in to categories.
+- Chi squared test is more appropriate for evaluating data sets in which data is categorized.
+- With a t test, we are evaluating the null hypothesis when two sets of data are collected and not categorized.
+
+- Chi square distributions allow us to see how multiple independent variables interacts. In other words, instead of just one normally distributed
+variable, we can have 2 or more. 
+- From below example, if we consider winter is normally distributed and so are summer, spring and fall. Each is an individual and independent normal
+variable. Each has its own normal distribution curve. For each season, we take a value from its distribution curve. Those values will be squared and
+summed. 
+- For each degree of freedom, we have different chi square distribution curve. The degree of freedom tell us that the mean of associated curve
+- The mean of curve with 3 degree of freedom will be 3.0 and so the mean of curve with 10 degree of freedom will be 10.0
+- The greater  our degreees of freedom, the closer our chi square distribution gets to a normal distribution.
+- In Chi-square distribution table, the x axis have the degree of freedom and y axis labels are the area to the right of critical values or probability
+threshold.
+
+Example
+--------
+So a hospital director states that more babies are born in summer and fall as compared to winter spring in her clinic all over the years.
+. The stated historic distribution is as below
+
+Winter - 15%
+Spring - 25%
+Summer - 30%
+Fall - 30%
+
+Actual births recorded last year are as follows
+
+Winter - 45
+Spring - 48
+Summer - 55
+Fall - 52
+
+For a population of 200 births below is the distribution
+
+		Expected % - Expected births for 200 - Actual births - Actual %
+Winter -15%		   - 30						 - 45			 - 22.5%
+Spring -25%		   - 50						 - 48			 - 24%
+Summer -30%		   - 60						 - 55   		 - 27.5%
+Fall   -30%	       - 60						 - 52			 - 26.2%
+
+- We want to know if the observed frequencies for this one year provides sufficient evidence to support the seasonal birth rates quoted by director
+- To do this goodness of fit test which is a type of chi square test to compare 2 or more populations
+
+Setup Hypotheses
+--------------------
+Null hypothesis (H0) - The stated distribution is accurate
+Alternate hypothesis (Ha) - The stated distribution is not accurate.
+
+- Significance level is set at 5%
+
+Calculate Chi-square test statistic
+--------------------------------------
+- Chi square test statistic
+
+X^2 (Chi-Square) = Sigma((observed - expected)^2/expected)
+Chi- Square for winter = Sigma((45-30)^2/30) = 7.5
+Chi- Square for spring = 0.08
+Chi- Square for summer = 0.42
+Chi- Square for fall = 1.07
+
+- Chi square value is very small when observed value is very close to expected value. Smaller the chi-square value, better the goodness of fit.
+
+Chi-square test statistic = Sum of all chi-squares = 9.07
+
+Critical Value Comparison
+---------------------------
+- Determine Degrees Of Freedom
+- DOF = k-1 where k is no of categories
+- DOF = 4-1 = 3
+
+Determine critical value
+--------------------------
+- Find row of 3 DOF and use 0.05 column
+- Critical value is 7.815
+
+- If we were to the left of 7.815, our one year of birth data would be a relatively likely outcome given the stated distribution
+- If we are to the right of 7.815, our one year birth data would be a rather extrement outcome given the stated distribution.
+- Since, 9.07 is right of 7.815, we reject our null hypothesis.
+- Hence based on single year of birth data, we can say with 95% confidence that, hospital director stated seasonal distribution was extemely unlikely
+
+
+ANOVA (Analysis of variance)
+----------------------------
+- ANOVA is a procedure used to determine if the variation between reported output is the result of some particular factor, or if the variation is
+simply the result of randomness.
+
+ANOVA Assumptions
+--------------------
+- Each populations in the comparison is normally distributed
+- The observations are independent of one another
+- Each of the populations being compared has an equivalent variance
+
+One-way ANOVA
+--------------
+- A procedure that allows us to compare the means of different levels of one factor.
+
+Other types
+-------------
+- Randomized block ANOVA would allow us to see if other factors may be influencing the outcomes. For example, annual income of customers plays a role
+in survey scores.
+- Two way ANOVA where we compare the means from different levels. Here we are using two factors. For example, survey scores are looked upon by
+age group (first factor) and type of room (second factor) occupied. 2 way ANOVA allows us to look at the intersection between these two factors.
+
+Example:
+
+1st factor 3 levels
+Age Group - Survey Scores
+18-30	  - 8.1
+30-50     - 9.1
+Above 50  - 7.2
+
+2nd factor 2 levels
+Room type	 - Survey Scores
+Semi-Deluxe  - 8.4
+Deluxe		 - 8.9
+
+Example: 4 different mobile service companies. 4 customers are asked to rate the service of each company
+
+Air Mobile	-	Binge Tech	-	Com Mobile	-	Data Roam
+5			-	8			-	5			-	4
+3			-	3			-	6			-	6
+5			-	4			-	5			-	8
+3			-	5			-	8			-	2
+Mean - 4	- Mean -5		- Mean - 6		- Mean - 5
+
+Grand mean is 5
+- Here we have same number of responses for 4 companies. But ANOVA, also allows us to different number of data points for each individual level.
+
+SST
+----
+Now to get SST - we subtract grand mean from each data point and square it and will sum up all the values.
+
+AIR - (5-5)^2 + (3-5)^2 + (5-5)^2 + (3-5)^2 = 8
+Binge - 14
+COM - 10
+DATA - 20
+Total sum of squares (SST)  = 52
+- It means the total amount of variation between each data value and the grand mean is 52.
+
+SSW
+---
+Variance within is the variance between the data values of each company and the mean of each mean score for each company.
+
+SSW for Air mobile = (5-4)^2 + (3-4)^2 + (5-4)^2 + (3-4)^2 = 4
+SSW for Binge = 14
+SSW for Com = 6
+SSW for Data = 20
+
+Sum of Squares within  = SSW = 44
+- This means the total sum of squares within each company's data often noted  as SSW is 44
+
+SSB
+---
+- Variance between the mean score of each company and grand mean. We get the difference and multiple by 4 since each companies mean is made
+up of 4 data values. So each square is the representative of each data value.
+
+(4-5)^2 = 1*4 = 4
+(5-5)^2 = 0*4 = 0
+(6-5)^2 = 1*4 = 4
+(5-5)^2 = 0*4 = 0
+
+
+Sum of squares between the companies is = SSB = 8
+
+SST = SSW + SSB
+52 = 44+8
+
+Hypothesis Testing
+--------------------
+Question - Is this possible that these data values happen by chance and that perhaps  the services are equal ?
+- In ANOVA, the null hypothesis is always the same.
+
+Set up hypotheses
+------------------
+Null hypothesis - H0 - Population means are equal
+Alternative hypothesis - Ha - Population means are not equal
+
+Rejecting H0 indicates differences between companies
+
+- A 5% significance level is established
+
+Identify and calculate a statistic
+---------------------------------------
+F-Stat = SSB/m-1	= 8/4-1	= 0.727
+		 ---------    ----
+		 SSW/nt-m	  44/16-4
+		 
+Big F-Statistic = Big differnce between companies (reject H0)
+Small F-Statistic = Not a big differnce between companies (fail to reject H0)
+
+We have 12 degrees of freedom within the dataset because for each of the 4 companies we had 4 values. That means for each individual company,
+we had 3 degrees of freedom. Four companies with each 3 degrees of freedom, which gives us a total of 12 degrees of freedom.
+
+Compare the critical value
+-------------------------------
+- Comparing with F-Distribution chart
+- There is a different  F distribution table, for every level of significance. So there is a whole  table for  a significance level of 1% another for
+10% and so on
+- Get the value in 5% significance level for the row value which carries the denominator degrees of freedom (12) and column value which carries the 
+numerator degrees of freedom (3)
+- Critical F Value is 3.49
+-  If our F- Statistic is greater than 3.49, we reject our null hypothesis. Since, F-Stat (0.727) is less than critical value (3.49), we will
+not reject the null hypothesis.
+- This means that there is not enough evidence to support that there is a significant level of difference between these 4 mobile service providers.
+It is likely that the difference in their reported mean scores occured by chance.
+
+Regression
+-----------
+- Regression helps us to investigate the relationship between 2 variables
+Ex : Does education level impact life time earnings
+
+Ex : A sample of test scores and reading hours where x axis represents the reading hours and y axis represents the test scores.
+
+- We need to find the best fit line which connects most of the data points
+
+- Equation for line is y=mx+b
+
+m = slope (positive slope indicates the line is rising from left to right. Negative slope indicates, line is falling from left to right)
+b = y intercept (where the line cuts the y axis from origin)
+
+Example - Starters for men's basketball team have the following heights and weights
+
+		  Heights(inches)(x)-	Weights(lbs)	-	xy	 -	x^2	-	y^2
+Player1	-	72				-	160				-	11520-	5184-	25600	
+Player2	-	75				-	180				-	13500-	5625-	32400
+Player3	-	78				-	220				-	17160-	6084-	48400
+Player4	-	77				-	190				-	14630-	5929-	36100
+Player5	-	82				-	245				-	20090-	6724-	60025
+SUMS 	-	384				-	995				-	76900-	29546-	202525
+
+slope a = n*Sigma(xy) - Sigma(x)*Sigma(y)
+		  ----------------------------------
+		  n*Sigma(x^2) - (Sigma (x))^2
+		  
+	  a = 8.832
+	  
+- Which means for every inch increase in height, the weight of the player is expected to increase by 8.832 pounds.
+
+y intercept b = Sigma (y) - a* Sigma(x)
+				----------------------
+						n
+			b = -479.3
+			
+- A person of 0 inch height, weighs -479.3 pounds.
+- A player of 5 ft 10 inches tall (70 inches), by plugging in the value of x as 70 inches in the formula (y = ax+b). We expect him to weigh 138.9 pounds
+- Now the question is was this formula a good fit ? Or, just the best we could do, given the data. To answer that, we calculate co-efficient of determination
+
+Co-efficient of Determination
+------------------------------
+- What happens when there is huge data set , scatter plot is messy and the regression line is not necessarily logical.
+- How can you tell if the regression line is a good fit for your data ?
+- For this we have r-squared, which is called co-efficient of determination
+- R-squared is a number between 0 and 1. 
+- 0 indicates, that our regressison line is a very poor fit for our data points
+- An r-squared of 1.0 indicates the line is a perfect fit for our data.
+
+How to calculate r-squared ?
+-------------------------------
+R squared= SSR/SST
+
+SSR = Sum of squares regression
+SST = Total sum of squares
+
+
+
+		  Heights(inches)(x)-	Weights(lbs)(y)	-	Predicted Weight (yhat)	-	Regression Squared(yhat -ymean)^2	-	Sum of squares(y-ymean)^2
+Player1	-	72				-	160				-	156.5					-	1809.7								-	1521
+Player2	-	75				-	180				-	183.0					-	257.6								-	361
+Player3	-	78				-	220				-	209.4					-	109.0								-	441
+Player4	-	77				-	190				-	200.6					-	2.6									-	81
+Player5	-	82				-	245				-	244.8					-	2094.0								-	2116
+Mean 	-	76.8			- 	199											SSR = 4272.8							SST= 4520
+
+yhat = 8.83x - 479.3
+
+Regression squared = (yhat - ymean)^2 
+Sum of squares = (observed y - ymean)^2
+
+- Therefore Rsquared = SSR/SST = 4272.8/4520 = 0.945 which is very close to 1
+- Which means our regression line is an excellent fit for our data points
+- It means that 94.5% of the variation is explained by height, the other 5.5% of the variation can be attributed to error.
+- Once we have the r-squared, we can understand the relationship between the regression line and the data points.
+
+Co-relation Co-efficient
+--------------------------
+r = (sign of slope of regression line)sqrt(R^2)
+
+- In the case of above example co-relation co-efficient is +0.972. This means the dots are heading in the upward direction or in other words is on the rise.
+- An r of +0.45 where the regression line tends to be in upward trend but the line drawn tends to miss most of the points.
+- For r=0, no real trend is visible
+- When someone reports an r, use that as a guide to tell about the trend of data and whether there seems to be a strong linear relationship between
+our two variables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						
+
+						
+
+
+
