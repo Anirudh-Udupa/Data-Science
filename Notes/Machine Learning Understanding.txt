@@ -1,0 +1,589 @@
+Machine Learning
+-------------------
+Different types of machine learning algorithms
+----------------------------------------------
+1) Deep Learning
+2) Ensemble (Ex -  Random Forest) - Random forest classification is an ensemble learning method that constructs multiple decision trees and outputs the value that collectively
+   represents all the decision trees. It can be used to predict both numeric and categorical variables
+3) Neural Networks - Neural network classification is an iterative classification algorithm that learns by comparing its classification result with the actual value and feeds back
+   it to the network to modify algorithm for further iterations.
+4) Regression (Ex - Logistic regression) - Logistic regression is a predictive analysis algorithm to explain dependence of a binary variable on one or more nominal,ordinal, interval
+   variables. Used to predict binary variables.
+5) Rule System
+6) Regularization
+7) Bayesian (Ex - Naive Bayes) - Naive Bayes is a probabilistic classification based on Bayes' theorem with assumption that there is no dependence between features. It is used when
+   there are higher number of input dimensions.
+8) Decision Tree (Ex - CART -Classification and Regression trees) - CART uses decision trees to predict both discrete and continuous values. It can be used when working with large
+   datasets
+9) Dimension Reduction 
+10)Instance based 
+11)Clustering
+12) Support vector machines - SVM classifies records by mapping them in space and constructing hyperplanes which can be used for classification. New records (Scoring data) are then
+    mapped on to the space and are predicted to belong to a category based on which side of hyperplanes they fall.
+
+Regression
+-----------
+- This will cover single and muti variate linear regression and logistic regression
+
+Bayesian
+------------
+- This will cover Naive Bayes method (Gaussian, Bernoulli and Multinomial)
+
+Dimension Reduction
+---------------------
+- We will learn Principal Component Analysis
+
+Instance Based
+-----------------
+- We will learn K-Nearest Neighbour method and K-NN (algorithm)
+
+Clustering
+-------------
+- We will learn K-Means clustering, hierarchical clustering and DBSCAN
+
+Vocabulary
+-------------
+- Features - Synonumous with the terms variable,column, attribute, and field
+- Instance - Synonymous with the terms row, observation, data point, value and case
+- Target - Target variable is synonymous with the term predictant and dependent variable in statistics
+- Data - Synonymous with the terms predictor  or set of predictor variables (variables we use  to make a prediction)
+
+-In Machine Learning, we use test and training data sets and we use random sampling for that.
+- Put 2/3rd of data to training set and 1/3rd of data to test set
+
+Supervised and Unsupervised Methods
+-------------------------------------
+- Supervised methods make predictions from labeled data
+
+Ex: Spam detection
+- We get an email -> we mark it as spam -> after doing it several times, the email service provider, starts making predictions for us based on 
+characteristic of incoming mails and moving them to spam box
+
+- Unsupervised methods make predictions from unlabeled data
+
+Ex - I have a house and I want to put it in to the market. Not exactly sure what is the price it would be best sold for. 
+What i can do is take old historical records and based on key feature like number of rooms in house, sq ft and acreage, we can make predictions and
+see for what price my current house would sell for.
+
+Factor Analysis
+------------------
+- Method used to explore datasets to find root causes that explain why data is acting a certain way
+- Factors (aka latent variables) = Variables that are quite meaningful but are infered and not directly observable.
+
+Ex: Assume I'm a marketing planning strategist and I've got customer responses for a surver. Based on survey, I can apply factor analysis to group
+respondents in to meaningful customer segments based on similarities of their response
+
+- Factor analysis is a method used to regress on features in order to discover factors that we can use as variables to represent original dataset
+- These factors are synthetic representations of data set with extra dimensionality and information redundancy stripped out.
+
+Assumptions with respect to factor analysis
+---------------------------------------------
+- Features are metric
+- Features are continuous or ordinal (which can be categorized in to finite groups of values)
+- Corelation co-effficient is greater than 3 between features in your dataset
+- That there are more than 100 observations and >5 observations per feature
+- Sample is homogenous
+
+- Factor analysis can be done using Scikit learn.
+
+Iris Dataset
+-------------
+Iris Flowers (labels)
+-------------------------
+- Setosa
+- Versicolor
+- Virginica
+
+Attributes (predictive features)
+-----------------------------------
+* Sepal length
+* Sepal width
+* Petal length
+* Petal width
+
+- We are going to see how to fit the factor analysis model to the iris data set in order to reduce the data sets dimensionality 
+by uncovering the combination of features that contain the most information. 
+In other words, that contain the most variance in the data set. These will be our factors, or latent variables.
+
+Principal Component Analysis
+-----------------------------
+Singular Value Decomposition
+----------------------------
+- A linear algebra method that decomposes a matrix in to 3 resultant matrices to reduce information redundancy and noise
+- SVD is used most commonly in PCA
+
+Ex - A = u*S*v
+
+A = A11 A12 ... A1n			u11 u12...u1f		S11 0...0		v11 v22...v1n
+	A21						.					0 	S22.		v21
+	.					= 	.				x	.			x	.
+	.						.					.				.
+	Am1.........Amn			um1.......umf		0.......Uff		vf1.......vfn
+
+
+- A is original matrix
+- u is left orthogonal matrix which holds important, non- redundant information about observations in original dataset
+- v is right orthogonal matrix which holds important, non- redundant information about on features in the original dataset
+- S is diagonal matrix which contains all of the information about the decompostion processes performed during the compression
+
+- PCA is an application of SVD
+- Principal components - Uncorelated features that embody a dataset's important information (it's variance) with redundancy,noise and outliers stripped
+  out
+- PCA is a unsupervised machine learning algorithm that discovers 
+relationships between variables and reduces variables down to a set of uncorrelated synthetic representations called principal components.
+- PCA usecases Fraud detection, spam detection, image and speech recognition or outlier removal in case used during data pre-processing
+- Factors and components represent what is left of a dataset after information redundancy and noise are striped out.
+-  You use them as input variables for machine learning algorithms to generate predictions from these compressed representations of your data.
+
+Steps
+-----
+1) Instantiate PCA object and call the fit method in order to find principal components
+2) Apply dimensionality reduction on the dataset  by calling transform method
+
+- The above 2 steps result in explained variance ratio for each of the principal components (4 components) which when summed up will be equal to 1
+- Based on the value of explained variance ratio, we will decide to retain atleast 70% of the dataset's original information and then will decide
+which components to consider and which components to skip
+
+- Based on the components finalized we can check how components are corelated to the variables and then we can use these components as input variables
+to machine learning algorithms like logistic regression
+
+Outlier detection
+------------------
+Useful for below tasks
+----------------------
+- Pre-processing task for analysis or machine learning
+- An analytical method of it's own merit
+
+3 types of outliers
+---------------------
+1) Point outlier - Observations anomalous with respect to the majority of observations in a feature (aka univariate outlier)
+2) Contextual outlier - observations considered anomalous given a specific context
+3) Collective outliers - A collection of observations anomalous but appear close to one another because they all have a similar anomalous value - can
+be identfied using DBSCAN
+
+Univariate method for outlier detection - Tukey boxplots
+---------------------------------------------------------
+- We can identify a variable's unusually high or low datapoints using tukey's outlier detection.
+- Datapoints identified from tukey's method are marked as potential outliers and should be investigated further
+
+How to spot an outlier using tukey boxplots
+---------------------------------------------
+- Boxplot whiskers are set at 1.5(Inter Quartile Range). If you see data points past these whiskers then they are outliers.
+- IQR is the distance between the lower quartile and the upper quartile.
+- Upper quartile is where 25% of data points are greater than a particular value and lower quartile is where 25% of data points are greater than 
+  a particular value
+- Any points that lie beyond 1.5 times the IQR are considered as outliers.
+
+Tukey outlier labeling method
+-------------------------------
+- IQR(spread) = Distance between first quartile (at 25%) and the 3rd quartile (at 75%)
+* a = Q1-1.5(IQR)
+* b= Q3+1.5(IQR)
+
+- If min value <  a and max value >b then the variable is suspect for outliers.
+
+Multivariate Outlier Detection
+-------------------------------
+- You can use multivariate outlier detection methods to identify outliers that emerge from a combination of two or more variables.
+- Methods for multivariate outlier detection
+1) Boxplots
+2) Scatter plot matrices
+
+DBSCAN for outlier detection
+-----------------------------
+- Unsupervised method that clusters core samples (dense areas of dataset) and denotes non-core samples (sparse portions of the dataset)
+
+Example - An example of where you would use DBSCAN is imagine you're working on a computer vision project for the advancement of self-driving cars. 
+You've got some line data that's supposed to represent lanes, but you need to be able to predict lanes from lines. 
+You can use DBSCAN to predict the lanes based on the density of the lines or non-density of the lines.
+
+Where dense areas are clustered into core samples, which will be considered lanes, and non-dense areas or sparse areas will be 
+considered non-core samples, non-drivable areas. This way the car knows where to go.
+
+- You can use DBSCAN to identify collective outliers. 
+Just make sure that the number of outliers you choose is less than 5% of the total number of observations in your dataset 
+You do that by adjusting your model parameters accordingly
+
+- 2 important model parameters for DBSCAN are
+1) EPS - Eps sets the maximum distance between two samples for them to be clustered in the same neighborhood. 
+		 You want to start with an eps value of zero point one.
+		 
+2) Min samples - The minimum number of samples in a neighborhood for a data point to qualify as a core point (start with low sample size)
+
+- You adjust your parameters until you've got just less than 5% of your total dataset size, labeled as outliers.
+
+Steps in jupyter notebook
+------------------------------
+1) Instantiate the DBSCAN object and call the fit method on our data in order to find core samples of high densite and expand clusters from those
+
+- Outliers are records that are returned with negative one label.
+
+K -Means Clustering
+-------------------
+- It is a unsupervised algorithm that's used to for quickly predicting groupings from within an unlabeled dataset
+
+Predictions in K-Means clustering is based on 
+
+1) The number of cluster centres present (k)
+2) Nearest mean values (measured in Eucledian distance between observations)
+
+Use Cases
+-----------
+- Market price and cost modeling
+- Customer segmentation
+- Insurance claim fraud detection
+- Hedge fund classification
+
+Things to keep in mind when using k-means
+--------------------------------------------
+1) Scale your variables
+2) Look at the scatter plot or the data table to estimate the number of centroids, or cluster centres, to set for the k parameter in the model
+
+Metrics
+----------
+Precision - A measure of the model's relevancy
+Recall - A measure of model's completeness
+
+High precision + High recall = Highly accurate model results
+
+Hierarchical clustering
+--------------------------
+- Unsupervised machine learning method that we can use to predict sub groups based on distance between data points and their nearest neighbours
+-  Each data point is linked to its neighbor that is most nearby according to the distance metric that you choose
+- Hierarchical clustering predicts subgroups within data by finding the distance between each data point and its nearest neighbor 
+and also linking up the most nearby neighbors. 
+- You can find the number of subgroups that are appropriate for a hierarchical clustering model by looking at a dendrogram.
+- Dendrogram is a tree graph that's useful for visually displaying taxonomies, lineages and relatedness
+
+Use Cases
+-----------
+- Hospital resource management
+- Business process management
+- Customer segmentation
+- Social network analysis
+
+Hierarchical Custering parameters
+-----------------------------------
+Distance metrics can be
+1) Euclidian
+2) Manhattan
+3) Cosine
+
+Linkage Parameters
+------------------
+1) Ward
+2) Complete
+3) Average
+
+- Use trial and error for parameter selection
+
+Steps to be followed in jupyter notebook
+-------------------------------------------
+1) Set the predictor and target variables
+2) Apply the hierarchical clustering via the linkage method
+3) Generate the dendrogram and based on the cluster size deduce the distance or vice versa
+4) Apply different distance and linkage parameters to find the accurate model that fits the data
+
+K-nearest neighbor classification
+---------------------------------------
+- K-NN is a supervised classifier that memorizes observation from within a labeled test set to predict classification labels for new, unlabeled observations
+- K-nearest neighbor classification is a supervised machine learning method that you can use to classify instances 
+based on the arithmetic difference between features in a labeled data set
+- Example :
+ In the coding demonstration for this segment, you're going to see how to predict whether a car has an automatic or manual transmission 
+ based on its number of gears and carborators. K-nearest neighbor works by memorizing observations within a labeled test set 
+ to predict classification labels for new, incoming, unlabeled observations. 
+ The algorithm makes predictions based on how similar training observations are to the new, incoming observations.
+
+The more similar the observation's value, the more likely they will be classified with the same label
+
+Use cases
+------------
+- Stock price prediction
+- Recommendation systems
+- Predictive trip planning
+- Credit risk analysis
+
+K-nn model assumptions
+-----------------------
+- Dataset has little noise
+- Dataset is labeled
+- Dataset only contains relevant features
+- Dataset has distinguishable subgroups
+- Avoid using k-NN on large datasets. It'll probably take long time
+
+Steps done in jupyter notebook
+------------------------------
+1) Read data and set the predictor and target variables
+2) Scale the predictor variables
+3) Split the data in to training and test datasets using train_test_split() function.
+4) Instantiate k-nn object and call the fit function on train data
+5) Now predict the target values and then compare and evaluate against the test target variable and get the report
+
+Results
+----------
+				Precision - Recall
+0 (Manual)		0.71	  - 1.00
+1 (Automatic)	1.00	  - 0.67
+
+Average/total	0.87	  - 0.82
+
+- Of all the data points labelled 1 returned, only 67% of the results returned were truly relevant.
+
+High precision + low recall = Few results returned, but many of the label predictions returned were correct
+
+Network Analysis
+-----------------
+
+Use cases
+----------
+1) Social Media Marketing Strategy
+2) Infrastructure system design
+3) Financial Risk management
+4) Public Health management
+
+- Network - A body of connected data that's evaluated during graph analysis
+- Graph - A data visualization schematic depicting the data that comprises a network
+
+- Nodes - The vertices around which a graph is formed
+- Edges - The lines that connect vertices within a graph structure
+- Directed graph  - A graph where there is direction assigned to each edge that connects a node
+- Directed edge - An edge feature that has been assigned a direction between nodes
+- Undirected graph - A graph where all edges are bi-directional
+- Undirected edge - A bidirectional edge feature
+- Graph size - The number of edges in a graph
+- Graph order - The number of vertices in a graph
+- Degree - The number of edges connected to a vertex, with loops counted twice
+
+-  There are many reasons you might want to use a graph generator, but one important applications of graph generators, 
+is for generating synthetic variations of a particular graph, so that you can use those synthetic graphs to test 
+and validate how well your graph assessment algorithm performs.
+
+- Basically, use graph assessment algorithms to extract a meaningful insight from network data. 
+The structure of your underlying data and your analytical objectives would determine which type of graph assessment algorithm is appropriate
+
+Graph Generators
+-----------------
+1) Graph drawing algorithms - will be discussed
+2) Network analysis algorithms
+3) Algorithmic routing for graphs
+4) Graph search algorithms
+5) Sub graph algorithms - will be discussed
+
+Simulating a social network
+-----------------------------
+Steps
+-----
+1) Generate graph object and edge list
+2) Assign attributes to graph nodes
+3) Visualize the network
+
+Social Network Analysis Metrics
+---------------------------------
+- Degree : Degree describes a node's connectedness
+- Successors : A successor node is a node that could serve as backup and potentially replace an influential node in a network.
+			   The function of a successor node is to preserve the flow of influence throughout a network in the case where an important node is removed
+
+- Neighbors - Neighbors are adjacent nodes in a network
+- In-degree - The theory is that if a person or profile has lot of inbound connections, then they're considered prestigious, because many different
+  people and profiles want to connect with them
+- Out-degree - If a person or profile has lot of outgoing connections, however, then they're sometimes considered influential. That's because,
+  in theory, these people have more of a platform across which to engage and interact with their many outbound connections.
+  
+Linear Regression
+------------------
+- Linear regression is a statistical machine learning method we can use to quantify, and make predictions based on, relationships between numerical
+  variables.
+- Linear regression is a simple machine learning method that you can use to predict an observation's value based on the relationship between the 
+  target variable and independent, linearily related numeric predictive features. 
+  
+- For example, image you have a dataset that describes key characteristics of a set of homes. 
+  Like land acreage, number of stories, building area and sales price. 
+  Based on these features, and the relationship with the sales price of these homes, 
+  you could build a multi variate linear model that predicts the price a house can be sold for based on it's features.
+  
+2 different variations of linear regression
+-----------------------------------------------
+- Simple linear regression - One predictor and one predictant
+- Multiple linear regression - multiple predictors and one predictant (shown in coding demo)
+
+Use cases
+----------
+- Sales forecasting
+- Resource consumption forecasting
+- Supply cost forecasting
+- Telecom services lifecycle forecasting
+
+Assumptions
+-------------
+- All variables are continuous numeric and not categorical
+- Data is free of missing variables and outliers
+- There's a linear relationship between predictors and predictant
+- All predictor's are independent of each other
+- Residuals (aka prediction errors) are normally distributed
+
+Steps followed in jupyter notebook
+----------------------------------
+1) Read data in to dataframe and set the columns
+2) To be inline with assumptions 1 and 3 (above), we'll check using scatter plot matrix.
+3) From the demo and seeing the scatter plot matrix, we check the matrix of unem v/s roll and hgrad v/s roll and finalize these variables to be used as predictors
+4) Check if there is a co-relation between the predictor variables (Unem, hgrad pair) by using enroll.corr()
+5) Assign the values for the 2 columns (unem and hgrad) in to a separate variable enroll_data and assign the target variable (enroll) to variable enroll_target.
+6) Before using predictor variables in linear model, scale the variables
+7) Check for missing values using boolean returns
+8) Instantiate linear regression object and passing parameter normalize = true which tells our model to normalize variables before regression
+9) We call fit method and pass the predictor variables and predictant y. This method fits the linear model.
+10) Atlast we will print out the score for the model. Score that is printed out is the multiple R squared of the prediction. It's a measure of how well the regression line was predicted by the model 
+	matches the real values for college enrollment. Basically it tells us how well the model performs in predicting college enrollment.
+
+
+Logistic Regression
+-------------------
+- Logistic regression is a simple machine learning method that you can use to predict an observation's category 
+  based on the relationship between the target feature and independent categorical predictive features in the data set.
+- For example, imagine you're a marketing data scientist for a major telecom service provider. 
+  You've got a customer data set that describes each customer with variables like 
+  age, income, average call duration, interaction history with customer support, leftover minutes per month and customer status.
+- Customer status is a variable that describes whether a customer is active or has canceled services. 
+  Based on the predictive features in this data set, in their relationship with a customer status variable, 
+  you could build a logistic regression model that predicts whether a customer is likely to cancel services in the near future.
+  This is called a customer churn model
+- Logistic regression differs from linear regression in that, with logistic regression, 
+  you're predicting categories for ordinal variables, in linear progression you're predicting values for numeric continuous variables.
+  
+Use Cases
+------------
+- Purchase propensity vs. adspend analysis
+- Customer churn prediction
+- Employee attrition modeling
+- Hazardous event prediction
+
+Assumptions
+--------------
+- Data is free of missing values
+- The predictant variable is binary (only accepts two values) or ordinal (a categorical variable with ordered values).
+- All predictors are independent of each other
+- There are atleast 50 observations per predictor variable (to ensure reliable results).
+
+Steps followed in jupyter notebook
+----------------------------------
+1)Read data in to dataframe and set the columns (in demo it is mtcars dataset).
+
+-  Select the predictor variables and target variables (In our example predictor variables drat (which is rear axle ratio) 
+   and carb (number of carburetors) determine whether the car is an automatic transmission vehicle or a manual transmission one 
+   which is the target variable). Before we use these variables, we need to check whether they meet model assumptions
+
+2) Hence extract our the predictor and target variables in to separate variables.
+3) Check for independence between features. Are our predictor variables ordinal. For that use a scatter plot to determine these features.
+4) Now check for independence of features, apply spearman's rank by applying spearman r function and get the spearman rank corerelation co-efficient
+5) Check for missing values in dataset (by using isnull().sum() method)
+6) Check whether target variable is binary or ordinal by using countplot() function
+7) To check whether size of dataset is sufficinct or not by using cars.info() method.
+8) Scale the data
+9) Instantiate logistic regression object
+10)Call the fit method of the model and pass predictor and predictant variables and print the R squared value by score() method.
+11)Use the scikit's classification report in order to evaluate model based on precision and recall.
+
+Naive Bayes Classifiers
+------------------------
+- Naive Bayes classification is a machine learning method that you can use to predict the likelihood that an event will occur given evidence 
+  that's present in the data. Also called conditional probability in the world of statistics
+
+	Conditional probability P(B|A) = P(A and B)
+									--------------
+										P(A)
+										
+- For demo, we will use a spam base where a large set of emails are taken where some of the mails are marked as spam and others are clean mails.
+- The predictive features in this dataset serve as our evidence. 
+  Using them, we can build a spam filtering system with a Naive Bayes model and successfully predict which incoming emails are spam and which are not.
+  
+3 types of Naive Bayes Models
+--------------------------------
+- Multinomial - Good for when the features (categorical or continuous) describe discrete frequency  counts (Ex: Word counts)
+- Bernoulli - Good for making predictions from binary features
+- Gaussian - Good for making predictions from normally distributed features
+
+Use Cases
+------------
+- Spam detection
+- Customer classification
+- Credit risk prediction
+- Health risk prediction
+
+Assumptions
+-------------
+- Predictors are independent of each other
+- A priori assumption : This is an assumption that the past conditions still hold true. When we make predictions from historical values,
+  we will get incorrect results if present circumstances have changed.
+- All regression models maintain an a apriori assumption as well.
+
+Steps followed in jupyter notebook
+----------------------------------
+1) Read data in to nd array.
+2) Capture the first 48 attributes as the predictor features and the last attribute as the target variable which identifies if an email is spam or notebook
+3) Use the train test split function to separate the train data and test data
+4) Since the dataset comprises frequency count of words. Multinomial NB and Bernoulli NB (with binning to convert frequency counts to binary values)
+5) Instantiate BernoulliNB object with binarize = true as parameter.
+6) Call the fit method and pass x train and y train variables and print the model
+7) Test the model accuracy by generating the predicted labels. We will do by calling the BernNB model and calling the predict method off of it
+   and passing the X-test
+8) Then we will calculate the accuracy score
+9) Repeat steps from 5-8 for multinomial NB and gaussian NB and calculate the accuracy scores respectively
+10)From multiple iterations and trial and error, we can finalize that the accuracy score of Bernoulli NB with the binarize = 0.1 parameter will result in the most
+   accurate score ~ 0.89.
+
+- It is very important to adjust model parameter settings to get best performance from the models
+
+Web Scraping
+------------
+Example - You are a blogger and you have different links in different blog posts. You want to include a resources page in a blog and pull out
+all the links from all the blog posts in to the resources page. In order to achive this, you can use web scraping which can be done via python
+
+Use Cases
+----------
+- Ecommerce store automation
+- Hydrological analysis
+- Emergency resource allocation planning
+- Oil and gas production intel
+
+Object types in beautiful soup
+-------------------------------
+- BeautifulSoup object
+- Tag object
+- NavigatableString object
+- Comment object
+
+Different ML algorithms generate similar Related datasets and all of them can be clubbed into 8 datasets. Individual parameters and column names may change in dataset depending on the type of algorithm, but the functionality of dataset remains the same for ex: columns in Statistics dataset may change Linear Regression and Logistic Regression, but statistics dataset contains accuracy metrics of the model. Here is a brief description of each of these datasets:
+
+1) Drivers: This dataset gives information on columns that are key determinants/drivers of the target column value. Train/Create model performs linear regression and identifies columns that take part in predicting the values for target column. Each of the identified columns are assigned coefficient and correlation values. Coefficient value talks about the weight-age given to that column in determining the target column value and correlation refers to the direction of relationship with target column i.e., if the target value increases or decreases with corresponding change in dependent column.
+
+2) Residuals: This dataset also gives information on the quality of model prediction, Residuals in particular. Residual is the difference between the measured value and the predicted value of a regression model. This dataset gives an aggregated(sum) value of absolute difference between Actual and Predicted values for all the columns in dataset. This dataset is visualized using a bar graph in the Quality tab Linear Regression model Inspect menu. 
+
+3) CARTree: This dataset is a tabular representation of Decision Tree computed to predict the target column values. It contains columns that represent the conditions and criteria for conditions in decision tree, prediction for each group, prediction confidence. Inbuilt Tree Diagram visualization can be used to visualize this decision tree.
+
+4) Confusion.Matrix: Confusion Matrix also known as error matrix is a specific table(pivot) layout that allows visualization of performance of an algorithm. Each row of the matrix represents instances of predicted class while each column represents instances in an actual class. This table reports the number of false positives, false negatives, true positives, and true negatives based on which precision, recall, F1 accuracy metrics are computed.
+
+5) Hitmap: This dataset contains information on leaf nodes in the decision tree. Each row in the table represents a leaf node and it contains information the criteria/Branch-segment that leaf node represents, Segment Size, Confidence and Expected # of rows i.e., expected number of correct predictions = Segment Size * Confidence.
+
+6) ClassificationReport: This dataset is a tabular representation of accuracy metrics for each distinct value of target column. For ex: if the target column can have two distinct values 'Yes' and 'No' , this dataset shows accuracy metrics like F1, Precision, Recall, Support(number of rows in Training dataset with this value) for each and every distinct value of Target column.
+
+7) Summary: This dataset contains a summary of input and optional parameters to the model specified during model creation and contains details like Target name and Model name.
+
+8) Statistics: This dataset contains metrics that quantify model accuracy. Depending on the algorithm/model that generates this dataset metrics present in the dataset will vary. Here is a list of metrics based on the model:
+
+Linear Regression, CART numeric, Elastic Net Linear:
+R-Square, R-Square Adjusted, Mean Absolute Error(MAE), Mean Squared Error(MSE), Relative Absolute Error(RAE), Related Squared Error(RSE), Root Mean Squared Error(RMSE)
+CART(Classification And Regression Trees), Naive Bayes Classification, Neural Network, Support Vector Machine(SVM), Random Forest, Logistic Regression:
+Accuracy, Total F1
+
+
+
+  
+
+
+   
+
+	
+
+ 
+
